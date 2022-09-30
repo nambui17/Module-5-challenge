@@ -11,7 +11,6 @@ var currentHour = today.hours();
 var contain = $('#plan');
 
 //This for loop should repeat 8 times for 8 hours in work day from 9:00 AM to 5:00 PM
-var time = 0;
 for (var i = 0; i < 25; i++) {
     // rowdiv inside for loop to reset every time
     var rowdiv = $('<div class = "row">');
@@ -23,21 +22,20 @@ for (var i = 0; i < 25; i++) {
     //for time column the rest is still 8/12 for smaller screens
     var textcol = $('<input class = "col-lg-8 textarea" type = "text"></input>');
     rowdiv.append(textcol);
-    var savecol = $('<div class = "col-lg-2 col-xs-1 saveBtn text-center"></div>');
+    var savecol = $('<button type = "button" class = "btn  btn-lg col-lg-2 col-xs-1 saveBtn text-center"></button>');
     savecol.text("Save");
     rowdiv.append(savecol);
     contain.append(rowdiv);
     //Set time for each box in 12 hour time
-    if (time > 0 && time < 12) {
-        timecol.text(time + " A.M.");
-    } else if (time == 12) {
-        timecol.text(time + " P.M.");
-    } else if (time == 0) {
-        timecol.text(time + 12 + " A.M.")
+    if (i > 0 && i < 12) {
+        timecol.text(i + " A.M.");
+    } else if (i == 12) {
+        timecol.text(i + " P.M.");
+    } else if (i == 0) {
+        timecol.text(i + 12 + " A.M.")
     } else {
-        timecol.text(time - 12 + " P.M.");
+        timecol.text(i - 12 + " P.M.");
     }
-    time += 1;
 }
 
 //Need a setInterval function to automatically update time as time passes and then during this will update color
@@ -52,11 +50,11 @@ function colorCode() {
         //If current hour is passed, has yet to pass, or current hour, the if else statement will color code
         contain.children().eq(i).addClass
         if (currentHour < i) {
-            contain.children().eq(i).children().eq(1).addClass("past");
+            contain.children().eq(i).children().eq(1).addClass("future");
         } else if (currentHour == i) {
             contain.children().eq(i).children().eq(1).addClass("present");
         } else {
-            contain.children().eq(i).children().eq(1).addClass("future");
+            contain.children().eq(i).children().eq(1).addClass("past");
         }
     }
 }
@@ -64,3 +62,21 @@ function colorCode() {
 
 //Call the function at webpage load
 colorCode();
+
+//Save button functionality takes time as string as key and then the input value of text box as value
+var save = $('button');
+save.click(function() {
+    var plan = $(this).siblings("input").val();
+    var t = $(this).siblings("div").text();
+    localStorage.setItem(t,plan);
+})
+
+//populate text boxes with local storage data
+// use localStorage.getItem("key") to get value of that key and on load of page will keep local storage data
+function load() {
+    for (var i=0;i<25;i++) {
+        contain.children().eq(i).children().eq(1).val("B");
+    }
+}
+
+load();
