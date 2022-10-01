@@ -1,6 +1,6 @@
 // Code for setting current date in header
 var today = moment();
-$("#currentDay").text("Today is " + today.format("MMM Do, YYYY") + "!");
+$("#currentDay").text("Today is " + today.format("MMM Do, YYYY h:mm A") + "!");
 //
 
 // What is the current hour. Will round down and is an integer.
@@ -40,6 +40,9 @@ for (var i = 9; i < 18; i++) {
 
 //Need a setInterval function to automatically update time as time passes and then during this will update color
 setInterval(function() {
+    //Refresh time every 5 seconds in header
+    today=moment();
+    $("#currentDay").text("Today is " + today.format("MMM Do, YYYY h:mm A") + "!");
     colorCode();
 },5000);
 
@@ -53,7 +56,7 @@ function colorCode() {
         //Have to add 9 since first time block starts at 9:00 AM.
         if (currentHour < i+9) {
             contain.children().eq(i).children().eq(1).addClass("future");
-        } else if (currentHour == i) {
+        } else if (currentHour == i+9) {
             contain.children().eq(i).children().eq(1).addClass("present");
         } else {
             contain.children().eq(i).children().eq(1).addClass("past");
