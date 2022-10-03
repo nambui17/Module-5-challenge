@@ -17,10 +17,10 @@ for (var i = 9; i < 18; i++) {
     //column for time should take up only 1/6 of screen on large screens same with save button
     //on smaller screens should take up 1/4 of screen time, save button 1/12 of screen, and text should have the rest
     //use bootstrap classes for this
-    var timecol = $('<div class = "col-lg-2 col-xs-3 text-center hour"></div>');
+    var timecol = $('<div class = "col-lg-2 col-xs-1 text-center hour"></div>');
     rowdiv.append(timecol);
     //for time column the rest is still 8/12 for smaller screens
-    var textcol = $('<textarea class = "col-lg-9" type = "text"></textarea>');
+    var textcol = $('<textarea class = "col-lg-9 col-xs-10" type = "text"></textarea>');
     rowdiv.append(textcol);
     var savecol = $('<button type = "button" class = "btn  btn-lg col-lg-1 col-xs-1 saveBtn text-center"></button>');
     savecol.text("Save");
